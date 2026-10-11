@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#8b5cf6">
+  <title>Untuk Aisyarah ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- SDK Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-heart">♡</div>
+        <div>
+          <strong>Aisyarah</strong>
+          <span>our little space</span>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-item active" data-page="home"><span>⌂</span> Beranda</button>
+        <button class="nav-item" data-page="mood"><span>☻</span> Mood</button>
+        <button class="nav-item" data-page="notes"><span>✦</span> Surat Kecil</button>
+        <button class="nav-item" data-page="memories"><span>♡</span> Kenangan</button>
+        <button class="nav-item" data-page="plans"><span>☼</span> Rencana</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="mini-card">
+          <span>Since</span>
+          <b id="sinceDate">6 November</b>
+        </div>
+        <button class="theme-btn" id="themeBtn">☾ <span>Mode malam</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="mobile-header">
+        <div class="brand">
+          <div class="brand-heart">♡</div>
+          <strong>Aisyarah</strong>
+        </div>
+        <button class="icon-btn" id="mobileMenu">☰</button>
+      </header>
+
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">A LITTLE PLACE FOR YOU</p>
+            <h1>Hai, Aisyarah<span>♡</span></h1>
+            <p class="hero-copy">Satu ruang kecil yang aku bikin khusus buat menyimpan hal-hal yang ingin selalu aku ingat tentang kamu.</p>
+            <button class="primary-btn" data-page-target="notes">Buka surat hari ini <span>→</span></button>
+          </div>
+          <div class="hero-orbit">
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+            <div class="hero-heart">♥</div>
+            <span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">·</span>
+          </div>
+        </div>
+
+        <div class="section-title">
+          <div><p class="eyebrow">TODAY</p><h2>Untuk hari ini</h2></div>
+          <span class="date-pill" id="today"></span>
+        </div>
+
+        <div class="grid-3">
+          <article class="card quote-card">
+            <div class="card-icon">“</div>
+            <p id="dailyQuote">Kamu nggak harus jadi sempurna. Jadi Aisyarah aja sudah cukup.</p>
+            <span>— dari seseorang yang sayang kamu</span>
+          </article>
+
+          <article class="card stat-card">
+            <span class="muted">Hari bersama</span>
+            <strong id="daysTogether">0</strong>
+            <span>hari dan masih terus bertambah.</span>
+          </article>
+
+          <article class="card mood-summary">
+            <div class="card-head"><span class="muted">Mood Aisyarah</span><span>♡</span></div>
+            <div class="big-mood" id="homeMood">Belum diisi</div>
+            <button class="text-btn" data-page-target="mood">Update mood →</button>
+          </article>
+        </div>
+
+        <div class="section-title compact">
+          <div><p class="eyebrow">QUICK ACCESS</p><h2>Sudut kecil kita</h2></div>
+        </div>
+        <div class="grid-3 quick-grid">
+          <button class="card quick-card" data-page-target="notes"><span>✦</span><b>Surat kecil</b><small>Pesan yang bisa dibuka kapan saja.</small></button>
+          <button class="card quick-card" data-page-target="memories"><span>♡</span><b>Kenangan</b><small>Catatan momen yang jangan sampai lupa.</small></button>
+          <button class="card quick-card" data-page-target="plans"><span>☼</span><b>Rencana</b><small>Hal-hal yang ingin kita lakukan.</small></button>
+        </div>
+      </section>
+
+      <section class="page" id="page-mood">
+        <div class="page-heading">
+          <p class="eyebrow">MOOD TRACKER</p>
+          <h1>Hari ini kamu merasa apa?</h1>
+          <p>Pilih satu mood. Data tersimpan online dan langsung sinkron otomatis.</p>
+        </div>
+        <div class="mood-options" id="moodOptions">
+          <button data-mood="Senang" data-emoji="☺">☺<span>Senang</span></button>
+          <button data-mood="Tenang" data-emoji="☁">☁<span>Tenang</span></button>
+          <button data-mood="Capek" data-emoji="☾">☾<span>Capek</span></button>
+          <button data-mood="Sedih" data-emoji="⌣">⌣<span>Sedih</span></button>
+          <button data-mood="Semangat" data-emoji="✦">✦<span>Semangat</span></button>
+        </div>
+        <div class="card mood-history">
+          <div class="card-head"><div><p class="eyebrow">RIWAYAT</p><h2>Mood terakhir</h2></div><button class="text-btn" id="clearMood">Hapus riwayat</button></div>
+          <div id="moodHistory" class="history-list"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-notes">
+        <div class="page-heading">
+          <p class="eyebrow">LITTLE LETTERS</p>
+          <h1>Surat kecil untuk Aisyarah</h1>
+          <p>Pesan yang kamu tulis akan langsung masuk ke HP Aisyarah secara real-time.</p>
+        </div>
+        <div class="notes-layout">
+          <div class="card note-editor">
+            <label>Judul surat</label>
+            <input id="noteTitle" maxlength="60" placeholder="Contoh: Kalau kamu lagi capek">
+            <label>Isi pesan</label>
+            <textarea id="noteBody" maxlength="1000" placeholder="Tulis sesuatu yang ingin Aisyarah baca..."></textarea>
+            <button class="primary-btn" id="saveNote">Simpan surat ♡</button>
+          </div>
+          <div class="notes-list" id="notesList"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-memories">
+        <div class="page-heading">
+          <p class="eyebrow">OUR MEMORIES</p>
+          <h1>Kenangan yang ingin disimpan</h1>
+          <p>Tambahkan momen kecil yang menurutmu layak diingat bersama.</p>
+        </div>
+        <div class="card memory-form">
+          <input id="memoryTitle" maxlength="70" placeholder="Nama momen, misalnya: Hari pertama ketemu orang tua">
+          <textarea id="memoryDesc" maxlength="300" placeholder="Ceritakan singkat..."></textarea>
+          <div class="form-row">
+            <input id="memoryDate" type="date">
+            <button class="primary-btn" id="saveMemory">Tambah kenangan</button>
+          </div>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section class="page" id="page-plans">
+        <div class="page-heading">
+          <p class="eyebrow">OUR LITTLE PLANS</p>
+          <h1>Hal-hal yang ingin kita lakukan</h1>
+          <p>Bukan soal seberapa cepat, yang penting satu-satu kita wujudkan.</p>
+        </div>
+        <div class="plan-add">
+          <input id="planInput" maxlength="100" placeholder="Contoh: Balik lagi ke Uluwatu">
+          <button class="primary-btn" id="addPlan">Tambah</button>
+        </div>
+        <div class="plans" id="plansList"></div>
+        <div class="card closing-card">
+          <span>♡</span>
+          <h2>Pelan-pelan aja.</h2>
+          <p>Masih banyak tempat, cerita, dan hari yang belum kita lewati.</p>
+          <b>— untuk Aisyarah</b>
+        </div>
+      </section>
+
+      <footer>Made with intention, not just code · Untuk Aisyarah ♡</footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
